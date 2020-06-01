@@ -96,27 +96,8 @@ class grid(object):
             pygame.draw.circle(surface, (25, 85, 181), circleMiddleLeft, radius)
             pygame.draw.circle(surface, (25, 85, 181), circleMiddleRight, radius)
 
-playing = True
-while playing:
-
-    displayBackground()
-
-    for evt in pygame.event.get():
-        if evt.type == pygame.QUIT:
-            playing = False
 
 
-        elif evt.type == pygame.KEYDOWN:
-            if evt.key == pygame.K_SPACE:
-                tetrisSound.play()
-                score += 100
-                displayAddedScore(100, 400)
-            if evt.key== pygame.K_LEFT:
-                zoneSound.play()
-
-    displayScore(750,100)
-    pygame.display.update()
-    pygame.time.delay(100)
 ##block
 
 ##List of all tetronimos
@@ -126,3 +107,28 @@ while playing:
 ## Initializing randomly currentTetronimo and nextTetronimo
 currentTetronimo = 0
 nextTetronimo =0
+
+playing = True
+def main():
+    while playing:
+
+
+        displayBackground()
+
+        for evt in pygame.event.get():
+            if evt.type == pygame.QUIT:
+                playing = False
+
+
+            elif evt.type == pygame.KEYDOWN:
+                if evt.key == pygame.K_SPACE:
+                    tetrisSound.play()
+                    score += 100
+                    displayAddedScore(100, 400)
+                if evt.key== pygame.K_LEFT:
+                    zoneSound.play()
+
+        displayScore(750,100)
+        pygame.display.update()
+        pygame.time.delay(100)
+main()
