@@ -9,6 +9,8 @@ and exceed a maximum height which occurs when too many blocks/squares stack up a
 In my version of tetris, I tried including rows of 12 instead of 10, multiple difficulties that would simply increase
 the speed of the tetronimos fall as well as a unique diversity of blocks. This Tetris is coded in pygame.
 
+To try the game, install the pygame package, clone the repo, and run the tetris.py file
+
 Sources
  
 https://www.pygame.org/docs/
