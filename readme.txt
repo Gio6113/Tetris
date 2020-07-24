@@ -6,9 +6,10 @@ positioning falling blocks into rows. When a full horizontal row is achieved,
 the row is cleared and the blocks/squares above fall, clearing space and awarding points. The game ends when the blocks reach
 and exceed a maximum height which occurs when too many blocks/squares stack up and too few rows are cleared.
 
-In my version of tetris, I tried including rows of 12 instead of 10, multiple difficulties that would simply increase
-the speed of the tetronimos fall as well as a unique diversity of blocks. This Tetris is coded in pygame.
+In my version of tetris, you will be playing on a 20 by 12 grid with over 20 new unique blocks and with increasing speeds starting
+when you clear 50 lines.
 
+This Tetris is coded in pygame.
 To try the game, install the pygame package, clone the repo, and run the tetris.py file
 
 Sources
