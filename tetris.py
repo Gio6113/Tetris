@@ -8,33 +8,33 @@ import random
 ##--------------------------------------
 
 ##Window
-wLength =  1000
-wHeight = 750
+w_lenght =  1000
+w_height = 750
 
 ##Grid
 
 ##change the following 3 for your personalized board
 columns = 12
-rows = 18
-blockSide = 29  #recommanded range 25-35
+rows = 20
+block_side = 29  #recommanded range 25-35
 
 border = 8
-length = columns*blockSide
-height = rows*blockSide
-gridOriginX = (wLength - length) // 2
-gridOriginY = wHeight - height - blockSide
+length = columns*block_side
+height = rows*block_side
+grid_origin_X = (w_lenght - length) // 2
+grid_origin_y = w_height - height - block_side
 
-grid2D = [[-1 for x in range(columns)] for x in range(rows)]
+grid_2d = [[-1 for x in range(columns)] for x in range(rows)]
 
 
 ## Grid showing next tetronimo
-nRows = 3
-nColumns = 4
-nBorder = 6
-nextX = wLength//10
-nextY = wHeight//2
-nLength = nColumns*blockSide
-nHeight = nRows*blockSide
+next_rows = 3
+next_columns = 4
+next_border = 6
+next_x = w_lenght//10
+next_y = w_height//2
+next_length = next_columns*block_side
+next_height = next_rows*block_side
 
 
 ##Starting window and main layout
@@ -42,7 +42,7 @@ nHeight = nRows*blockSide
 
 #Setting background
 pygame.init()
-screen = pygame.display.set_mode((wLength, wHeight))
+screen = pygame.display.set_mode((w_lenght, w_height))
 background = pygame.image.load('Background.png')
 
 #Fixing top bar of window
@@ -51,15 +51,15 @@ block = pygame.image.load('block.png')
 pygame.display.set_icon(block)
 
 #initializing sounds
-zoneSound = mixer.Sound("Zone.wav")
-tetrisSound = mixer.Sound("Tetris!.wav")
+zone_sound = mixer.Sound("Zone.wav")
+tetris_sound = mixer.Sound("Tetris!.wav")
 
 #Displaying Tetris game title
 title = pygame.image.load('Title.png')
 
-def displayBackground():
+def display_background():
         screen.blit(background, (0, 0))
-        screen.blit(title, ((wLength - title.get_width()) // 2, wHeight // 75))
+        screen.blit(title, ((w_lenght - title.get_width()) // 2, w_height // 75))
 
 
 
@@ -67,86 +67,86 @@ def displayBackground():
 ##--------------------------------------
 
 ## Creating tetronimo shapes. You can easily make a new shape by creating a 2D array and using "1" to indicate a filled block in the
-## layout (check examples below). Don't forget to update the list of tetronimos if you added or/and removed some.
+## layout (check examples below). ***Don't forget to update the list of tetronimos if you added or/and removed some***.
 
-singleSquare  =   [[1]]
+single_square  =   [[1]]
 
-doubleSquare  =   [[1,1],
+double_square  =  [[1,1],
                    [1,1]]
 
-tripleSquare  =   [[1,1,1],
+triple_square  =  [[1,1,1],
                    [1,1,1],
                    [1,1,1]]
 
-tripleL   =       [[0,0,1],
+triple_l   =      [[0,0,1],
                    [1,1,1]]
 
-skinnyL   =       [[0,0,0,1],
+skinny_l   =      [[0,0,0,1],
                    [1,1,1,1]]
 
-quadrupleL =      [[0,0,1,1],
+quadruple_l =     [[0,0,1,1],
                    [1,1,1,1]]
 
-tripleJ =         [[1,0,0],
+triple_j =        [[1,0,0],
                    [1,1,1]]
 
-skinnyJ =         [[1,0,0,0],
+skinny_j =        [[1,0,0,0],
                    [1,1,1,1]]
 
-quadrupleJ =      [[1,1,0,0],
+quadruple_j =      [[1,1,0,0],
                    [1,1,1,1]]
 
-tripleStraight =   [[1,1,1]]
+triple_straight =   [[1,1,1]]
 
-quadrupleStraight = [[1,1,1,1]]
+quadruple_straight = [[1,1,1,1]]
 
-brokenStraight =    [[1,1,0,1]]
+broken_straight =    [[1,1,0,1]]
 
-blockT =            [[0,1,0],
+block_t =           [[0,1,0],
                      [1,1,1]]
 
-blockPlus =         [[0,1,0],
+block_plus =        [[0,1,0],
                      [1,1,1],
                      [0,1,0]]
 
-blockGun =           [[1,1],
+block_gun =          [[1,1],
                       [1,0]]
 
-chippedBrick =        [[0,1,1],
+chipped_brick =       [[0,1,1],
                        [1,1,1]]
 
-spinnerBlock =         [[1,0,0],
+spinner_block =        [[1,0,0],
                         [1,0,0],
                         [1,0,1]]
 
-twoByFour =            [[1,1,1,1],
+two_by_four =          [[1,1,1,1],
                         [1,1,1,1]]
 
-twoByOne  =            [[1,1]]
+two_by_one =            [[1,1]]
 
-superS    =            [[0,0,1,1],
+super_s    =           [[0,0,1,1],
                         [1,1,1,0]]
 
-superZ      =          [[1,1,0,0],
+super_z      =         [[1,1,0,0],
                         [0,1,1,1]]
 
-bridgeBlock =          [[1,0,1],
+bridge_block =         [[1,0,1],
                         [1,0,1],
                         [1,1,1]]
 
-miniBridge =           [[1,0,1],
+mini_bridge =          [[1,0,1],
                         [1,1,1]]
 
 
 
 
 ##List of all tetronimos (shapes)
-tetronimos = [singleSquare, doubleSquare, tripleSquare, tripleL, skinnyL, quadrupleL, tripleJ, skinnyJ, quadrupleJ, bridgeBlock, \
-tripleStraight, quadrupleStraight, brokenStraight,blockT, blockPlus, blockGun, chippedBrick, spinnerBlock, twoByFour, \
-twoByOne, miniBridge, bridgeBlock, superZ, superS ]
+tetronimos = [single_square, double_square, triple_square, triple_l, skinny_l, quadruple_l, triple_j, skinny_j, quadruple_j, \
+bridge_block, triple_straight, quadruple_straight, broken_straight, block_t, block_plus, block_gun, chipped_brick, spinner_block, two_by_four, \
+two_by_one, mini_bridge,super_z, super_s ]
 
 ##List of all colours
-tetronimoColours = [(235, 64, 52), (255, 153, 0), (37, 215, 220), (255, 238, 0),(59, 189, 30),(217, 11, 169)]
+tetronimo_colours = [(235, 64, 52), (255, 153, 0), (37, 215, 220), (255, 238, 0),(59, 189, 30),(217, 11, 169)]
 
 
 class Tetronimo(object):
@@ -157,7 +157,7 @@ class Tetronimo(object):
         self.shape = shape
         ##Identification tag and colour
         self.number = tetronimos.index(shape)
-        self.colour = tetronimoColours[self.number%len(tetronimoColours)]
+        self.colour = tetronimo_colours[self.number%len(tetronimo_colours)]
 
     def rotate(self, shape):
         columns = len(self.shape[0])
@@ -183,153 +183,153 @@ def getTetronimo():
 ##--------------------------------------
 
 #displaying main grid
-def drawGrid(grid2D):
+def drawGrid(grid_2d):
 
     #Drawing border
-    pygame.draw.rect(screen, (163, 15, 15), (gridOriginX-border//2, gridOriginY-border//2, length+border, height+border), border)
+    pygame.draw.rect(screen, (163, 15, 15), (grid_origin_X-border//2, grid_origin_y-border//2, length+border, height+border), border)
 
     ##Drawing the taken squares
-    for row in range(len(grid2D)):
-        for col in range(len(grid2D[row])):
-            if grid2D[row][col]!=-1:
-                pygame.draw.rect(screen,tetronimoColours[grid2D[row][col]%len(tetronimoColours)], (gridOriginX + col*blockSide,  gridOriginY + row*blockSide, blockSide, blockSide))
+    for row in range(len(grid_2d)):
+        for col in range(len(grid_2d[row])):
+            if grid_2d[row][col]!=-1:
+                pygame.draw.rect(screen,tetronimo_colours[grid_2d[row][col]%len(tetronimo_colours)], (grid_origin_X + col*block_side,  grid_origin_y + row*block_side, block_side, block_side))
 
     ##Drawing the mesh
-    for horizontalLine in range(rows+1):
-        pygame.draw.line(screen, (215,215,215), (gridOriginX, gridOriginY+ horizontalLine*blockSide), (gridOriginX + length, gridOriginY + horizontalLine * blockSide))
-        for verticalLine in range(columns+1):
-            pygame.draw.line(screen, (215,215,215), (gridOriginX + verticalLine * blockSide, gridOriginY), (gridOriginX + verticalLine * blockSide, gridOriginY + height))
+    for horizontal_line in range(rows+1):
+        pygame.draw.line(screen, (215,215,215), (grid_origin_X, grid_origin_y+ horizontal_line*block_side), (grid_origin_X + length, grid_origin_y + horizontal_line * block_side))
+        for vertical_line in range(columns+1):
+            pygame.draw.line(screen, (215,215,215), (grid_origin_X + vertical_line * block_side, grid_origin_y), (grid_origin_X + vertical_line * block_side, grid_origin_y + height))
 
 #Drawing the moving piece.
-def drawCurrentPiece(currentPos, colour):
-    for pos in currentPos:
+def draw_current_piece(current_pos, colour):
+    for pos in current_pos:
         y, x = pos
         if (y>= 0 and y<rows) and (x>= 0 and x < columns):
-            pygame.draw.rect(screen, colour, (gridOriginX + x*blockSide,  gridOriginY + y*blockSide, blockSide, blockSide))
+            pygame.draw.rect(screen, colour, (grid_origin_X + x*block_side,  grid_origin_y + y*block_side, block_side, block_side))
 
 
 #Updating main grid after piece stops FALLING
-def updateGrid(currentPos, number):
-    global grid2D, columns, rows
-    for pos in currentPos:
+def update_grid(current_pos, number):
+    global grid_2d, columns, rows
+    for pos in current_pos:
         y, x = pos
         if (y>= 0 and y<rows) and (x>= 0 and x <columns):
-            grid2D[y][x] = number
+            grid_2d[y][x] = number
 
 
 ##Updating and displaying next grid in same fashion as the main grid
-def showNextTetronimo(nextTetronimo):
+def show_next_tetronimo(next_tetronimo):
 
     ## Label
-    nextFont =  pygame.font.Font('Uniforme (Font).ttf', 25)
-    nextText = nextFont.render('Next Shape', 1, (132, 92, 214))
-    screen.blit(nextText, (wLength//10 , wHeight//2 - blockSide - 5))
+    next_font =  pygame.font.Font('Uniforme (Font).ttf', 25)
+    next_text = next_font.render('Next Shape', 1, (132, 92, 214))
+    screen.blit(next_text, (w_lenght//10 , w_height//2 - block_side - 5))
 
-    pygame.draw.rect(screen, (163, 15, 15), (nextX-nBorder//2, nextY-nBorder//2, nLength+nBorder, nHeight+nBorder), nBorder)
+    pygame.draw.rect(screen, (163, 15, 15), (next_x-next_border//2, next_y-next_border//2, next_length+next_border, next_height+next_border), next_border)
 
     #Drawing the taken squares
-    rows = len(nextTetronimo.shape)
-    columns = len(nextTetronimo.shape[0])
+    rows = len(next_tetronimo.shape)
+    columns = len(next_tetronimo.shape[0])
     ## Go through the tetronimos shape to find all blocks that make it
     for row in range(rows):
         for col in range(columns):
-            if nextTetronimo.shape[row][col] == 1:
-                pygame.draw.rect(screen,nextTetronimo.colour, (nextX + col*blockSide,  nextY + row*blockSide, blockSide, blockSide))
+            if next_tetronimo.shape[row][col] == 1:
+                pygame.draw.rect(screen,next_tetronimo.colour, (next_x + col*block_side,  next_y + row*block_side, block_side, block_side))
 
     ##Draw the mesh
-    for horizontalLine in range(nRows+1):
-        pygame.draw.line(screen, (128,128,128), (nextX, nextY+ horizontalLine*blockSide), (nextX + nLength, nextY + horizontalLine * blockSide))
-        for verticalLine in range(nColumns+1):
-            pygame.draw.line(screen, (128,128,128), (nextX + verticalLine * blockSide, nextY), (nextX + verticalLine * blockSide, nextY + nHeight))
+    for horizontal_line in range(next_rows+1):
+        pygame.draw.line(screen, (128,128,128), (next_x, next_y+ horizontal_line*block_side), (next_x + next_length, next_y + horizontal_line * block_side))
+        for vertical_line in range(next_columns+1):
+            pygame.draw.line(screen, (128,128,128), (next_x + vertical_line * block_side, next_y), (next_x + vertical_line * block_side, next_y + next_height))
 
 
 
 ##Converting shapes into grid positions
-def onGridPosition(currentTetronimo):
-    gridCoordinates = []
-    rows = len(currentTetronimo.shape)
-    columns = len(currentTetronimo.shape[0])
+def on_grid_position(current_tetronimo):
+    grid_coordinates = []
+    rows = len(current_tetronimo.shape)
+    columns = len(current_tetronimo.shape[0])
     ## Go through the tetronimos shape to find all blocks that make it
     for row in range(rows):
         for col in range(columns):
-            if currentTetronimo.shape[row][col] == 1:
+            if current_tetronimo.shape[row][col] == 1:
                 ## always y,x when working with this layout.
-                gridCoordinates.append((currentTetronimo.y + row , currentTetronimo.x + col))
-    return gridCoordinates
+                grid_coordinates.append((current_tetronimo.y + row , current_tetronimo.x + col))
+    return grid_coordinates
 
 
 
-def openSpace(currentPos):
-    global grid2D, columns, rows
-    for pos in currentPos:
+def open_space(current_pos):
+    global grid_2d, columns, rows
+    for pos in current_pos:
         y, x = pos
         if not((y>= 0 and y<rows) and (x>= 0 and x <columns)):
             return False
-        elif grid2D[y][x]!= -1:
+        elif grid_2d[y][x]!= -1:
             return False
     return True
 
 
 #Game controls
-def rotateUp(currentTetronimo):
-    currentTetronimo.rotate(currentTetronimo.shape)
-    currentPos = onGridPosition(currentTetronimo)
-    if not openSpace(currentPos):
-        currentTetronimo.rotate(currentTetronimo.shape)
-        currentTetronimo.rotate(currentTetronimo.shape)
-        currentTetronimo.rotate(currentTetronimo.shape)
+def rotate_up(current_tetronimo):
+    current_tetronimo.rotate(current_tetronimo.shape)
+    current_pos = on_grid_position(current_tetronimo)
+    if not open_space(current_pos):
+        current_tetronimo.rotate(current_tetronimo.shape)
+        current_tetronimo.rotate(current_tetronimo.shape)
+        current_tetronimo.rotate(current_tetronimo.shape)
 
 
 
-def moveLeft(currentTetronimo ):
-    currentTetronimo.x -=1
-    currentPos = onGridPosition(currentTetronimo)
-    if not openSpace(currentPos):
-        currentTetronimo.x += 1
+def move_left(current_tetronimo ):
+    current_tetronimo.x -=1
+    current_pos = on_grid_position(current_tetronimo)
+    if not open_space(current_pos):
+        current_tetronimo.x += 1
 
-def moveRight(currentTetronimo):
-    currentTetronimo.x +=1
-    currentPos = onGridPosition(currentTetronimo)
-    if not openSpace(currentPos):
-        currentTetronimo.x -= 1
+def move_Right(current_tetronimo):
+    current_tetronimo.x +=1
+    current_pos = on_grid_position(current_tetronimo)
+    if not open_space(current_pos):
+        current_tetronimo.x -= 1
 
-def moveDown(currentTetronimo):
-    currentTetronimo.y +=1
-    currentPos = onGridPosition(currentTetronimo)
-    if not openSpace(currentPos):
-        currentTetronimo.y -= 1
+def move_Down(current_tetronimo):
+    current_tetronimo.y +=1
+    current_pos = on_grid_position(current_tetronimo)
+    if not open_space(current_pos):
+        current_tetronimo.y -= 1
 
 
 
 ##initializing scores, lines and speed
 ##--------------------------------------
 score = 0
-scoreText = pygame.font.Font('Uniforme (Font).ttf', 40)
-addedScoreText = pygame.font.Font('Uniforme (Font).ttf', 25)
+score_text = pygame.font.Font('Uniforme (Font).ttf', 40)
+added_score_text = pygame.font.Font('Uniforme (Font).ttf', 25)
 
 lines = 0
-lineText = pygame.font.Font('Uniforme (Font).ttf', 30)
+line_text = pygame.font.Font('Uniforme (Font).ttf', 30)
 
 speed = 2  ##Change this speed to 1 for easy, 2 for medium, 3 for hard
 
-def displayScore(x, y):
-    showScore = scoreText.render("Score " + str(score), True, (	132, 92, 214))
-    screen.blit(showScore, (x, y))
-    showLine = lineText.render("Lines cleared " + str(lines), True, (	132, 92, 214))
-    screen.blit(showLine, (x, y+ 2*blockSide))
+def display_score(x, y):
+    show_score = score_text.render("Score " + str(score), True, (	132, 92, 214))
+    screen.blit(show_score, (x, y))
+    show_line = line_text.render("Lines cleared " + str(lines), True, (	132, 92, 214))
+    screen.blit(show_line, (x, y+ 2*block_side))
 
-def displayAddedScore(addedScore,x, y):
-    addScore = addedScoreText.render("+ " + str(addedScore), True, (215, 111, 0))
+def display_added_score(added_score,x, y):
+    addScore = added_score_text.render("+ " + str(added_score), True, (215, 111, 0))
     screen.blit(addScore, (x, y))
     pygame.display.update()
 
 
 
-def changeSpeed():
-    if lines < 100:
+def change_speed():
+    if lines < 50:
        return False
-    ## Speed increases by one
-    n = lines - 80
+    ## Speed increases by one every 20 lines cleared starting from 50 lines
+    n = lines - 30
     speed = n%20 + 2
 
 
@@ -337,51 +337,52 @@ def changeSpeed():
 ##--------------------------------------
 
 
-def checkTetris():
+def check_tetris():
     global lines, score
     counter = 0
     ## Check rows from bottom to top
-    for i in range(rows):
+    for row in range(rows):
         ## Check if the entire row does not contain a 0
-        if all(x != -1 for x in grid2D[i]):
+        if all(x != -1 for x in grid_2d[row]):
             counter += 1
-            lastRow = i
-            clearRow(i)
+            last_row = row
+            clear_row(row)
 
     lines += counter
 
     if counter == 4:
-        tetrisSound.play()
-        addedScore = 5000
-        score += addedScore
-        displayAddedScore(addedScore, gridOriginX - 3*blockSide, gridOriginY)
+        tetris_sound.play()
+        added_score = 5000
+        score += added_score
+        display_added_score(added_score, grid_origin_X - 3*block_side, grid_origin_y)
+
     elif counter > 0:
-        zoneSound.play()
+        zone_sound.play()
         for i in range(counter):
-            addedScore = 1000+300*i
-            displayAddedScore(addedScore, gridOriginX - 3*blockSide, gridOriginY + lastRow*blockSide - i*blockSide)
-            score += addedScore
+            added_score = 1000+300*i
+            display_added_score(added_score, grid_origin_X - 3*block_side, grid_origin_y + last_row*block_side - i*block_side)
+            score += added_score
     else:
         return False
 
 
-def clearRow(row):
+def clear_row(row):
     for i in range(row,0,-1):
-        grid2D[i] = grid2D[i-1]
-    grid2D[0]=[-1 for i in range(columns)]
+        grid_2d[i] = grid_2d[i-1]
+    grid_2d[0]=[-1 for i in range(columns)]
 
 
-def checkLoss(currentPositions):
-    global lines, score, speed, grid2D
+def checkLoss(current_positions):
+    global lines, score, speed, grid_2d
 
     #If a piece has stopped falling and is at the top than the game is over, might wanna change
-    for pos in currentPositions:
+    for pos in current_positions:
         y, x = pos
         ##If Player has lost
         if y < 1:
-                overFont =  pygame.font.Font('Uniforme (Font).ttf', 40)
-                gameOver = overFont.render("Game Over, press space to play again", 1, (215,215,215))
-                screen.blit(gameOver,((wLength - gameOver.get_width()) // 2, (wHeight - gameOver.get_height())//2))
+                over_font =  pygame.font.Font('Uniforme (Font).ttf', 40)
+                game_over = over_font.render("Game Over, press space to play again", 1, (215,215,215))
+                screen.blit(game_over,((w_lenght - game_over.get_width()) // 2, (w_height - game_over.get_height())//2))
                 pygame.display.update()
                 print("Final score: " + str(score))
                 print("Lines made: "  + str(lines))
@@ -399,7 +400,7 @@ def checkLoss(currentPositions):
                                 lines = 0
                                 speed = 2
 
-                                grid2D = [[-1 for x in range(columns)] for x in range(rows)]
+                                grid_2d = [[-1 for x in range(columns)] for x in range(rows)]
                                 print("Starting new game")
                                 main()
                 pygame.quit()
@@ -418,8 +419,8 @@ def main():
     time = 1
 
     ## Picking first 2 pieces randomly
-    currentTetronimo = getTetronimo()
-    nextTetronimo = getTetronimo()
+    current_tetronimo = getTetronimo()
+    next_tetronimo = getTetronimo()
     falling = True
 
 
@@ -431,13 +432,13 @@ def main():
                 playing = False
             elif evt.type == pygame.KEYDOWN:
                 if evt.key == pygame.K_UP:
-                    rotateUp(currentTetronimo)
+                    rotate_up(current_tetronimo)
                 elif evt.key== pygame.K_LEFT:
-                     moveLeft(currentTetronimo)
+                     move_left(current_tetronimo)
                 elif evt.key== pygame.K_RIGHT:
-                    moveRight(currentTetronimo)
+                    move_Right(current_tetronimo)
                 elif  evt.key== pygame.K_DOWN:
-                    moveDown(currentTetronimo)
+                    move_Down(current_tetronimo)
 
         ##Speed control
         time += clock.get_rawtime()
@@ -445,28 +446,28 @@ def main():
 
         if 1000/time <= speed:
                 time = 1
-                currentTetronimo.y += 1
-                currentPos = onGridPosition(currentTetronimo)
-                if (not (openSpace(currentPos)) and currentTetronimo.y > 0):
-                    currentTetronimo.y -= 1
+                current_tetronimo.y += 1
+                current_pos = on_grid_position(current_tetronimo)
+                if (not (open_space(current_pos)) and current_tetronimo.y > 0):
+                    current_tetronimo.y -= 1
                     falling = False
 
-        currentPos = onGridPosition(currentTetronimo)
+        current_pos = on_grid_position(current_tetronimo)
 
         if not falling:
-            updateGrid(currentPos, currentTetronimo.number)
-            checkTetris()
-            checkLoss(currentPos)
-            changeSpeed()
-            currentTetronimo = nextTetronimo
-            nextTetronimo = getTetronimo()
+            update_grid(current_pos, current_tetronimo.number)
+            check_tetris()
+            checkLoss(current_pos)
+            change_speed()
+            current_tetronimo = next_tetronimo
+            next_tetronimo = getTetronimo()
             falling = True
 
-        displayBackground()
-        displayScore(wLength*3//4,wHeight//10)
-        drawCurrentPiece(currentPos, currentTetronimo.colour)
-        drawGrid(grid2D)
-        showNextTetronimo(nextTetronimo)
+        display_background()
+        display_score(w_lenght*3//4,w_height//10)
+        draw_current_piece(current_pos, current_tetronimo.colour)
+        drawGrid(grid_2d)
+        show_next_tetronimo(next_tetronimo)
 
 
         pygame.display.update()
